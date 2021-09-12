@@ -1,0 +1,9 @@
+*.pyc
+**/__pycache__/
+
+**/config.ini
+*.log
+venv/
+
+**/*.swp
+

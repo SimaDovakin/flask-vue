@@ -4,6 +4,7 @@
 **/config.ini
 *.log
 venv/
+*.db
 
 **/*.swp
 

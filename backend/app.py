@@ -53,6 +53,35 @@ def created_book():
     return book_schema.jsonify(book)
 
 
+@app.route('/get/<pk>', methods=['GET'])
+def book_detail(pk):
+    book = Book.query.get_or_404(pk)
+    return book_schema.jsonify(book)
+
+
+@app.route('/edit/<pk>', methods=['PUT'])
+def update_book(pk):
+    book = Book.query.get_or_404(pk)
+
+    name = request.json['name']
+    author = request.json['author']
+
+    book.name = name
+    book.author = author
+
+    db.session.commit()
+    return book_schema.jsonify(book)
+
+
+@app.route('/delete/<pk>', methods=['DELETE'])
+def delete_book(pk):
+    book = Book.query.get_or_404(pk)
+    db.session.delete(book)
+
+    db.session.commit()
+    return book_schema.jsonify(book)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 

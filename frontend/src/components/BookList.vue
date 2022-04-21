@@ -5,25 +5,10 @@
           <th>Author</th>
           <th>Adding date</th>
       </tr>
-      <tr>
-          <td>Solaris</td>
-          <td>Stanislav Lem</td>
-          <td>2022-04-21</td>
-      </tr>
-      <tr>
-          <td>Crime and Punishment</td>
-          <td>Fedor Dostoevskiy</td>
-          <td>2022-04-21</td>
-      </tr>
-      <tr>
-          <td>Crime and Punishment</td>
-          <td>Fedor Dostoevskiy</td>
-          <td>2022-04-21</td>
-      </tr>
-      <tr>
-          <td>Crime and Punishment</td>
-          <td>Fedor Dostoevskiy</td>
-          <td>2022-04-21</td>
+      <tr v-for="book in bookList" :key="book.id">
+          <td>{{ book.name }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.created_at }}</td>
       </tr>
   </table>
 </template>
@@ -31,6 +16,9 @@
 <script>
 export default {
   name: 'BookList',
+  props: {
+    bookList: Array
+  }
 }
 </script>
 

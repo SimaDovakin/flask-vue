@@ -2,20 +2,29 @@
   <div class="container">
     <h1>Book Manager</h1>
     <BookList :bookList="bookList"/>
+	<div class="form-container">
+		<ButtonAdd />
+		<BookForm />
+	</div>
   </div>
 </template>
 
 <script>
 import BookList from './components/BookList.vue'
+import ButtonAdd from './components/ButtonAdd.vue'
+import BookForm from './components/BookForm.vue'
 
 export default {
   name: 'App',
   components: {
-    BookList
+    BookList,
+	ButtonAdd,
+	BookForm
   },
   data() {
     return {
-      bookList: []
+		generalState: 'viewBookList', // General state of app. Can acept following values: 'viewBookList', 'addNewBook' and 'editBook' 
+		bookList: []
     }
   },
   methods: {
@@ -56,5 +65,11 @@ h1 {
 .container {
   max-width: 1080px;
   margin: 0 auto;
+}
+
+.form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center
 }
 </style>

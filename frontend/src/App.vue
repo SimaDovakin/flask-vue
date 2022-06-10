@@ -3,8 +3,8 @@
     <h1>Book Manager</h1>
     <BookList :bookList="bookList"/>
 	<div class="form-container">
-		<ButtonAdd />
-		<BookForm />
+		<ButtonAdd @add-new-book="addNewBook" v-if="generalState === 'viewBookList'" :generalState="generalState" />
+		<BookForm v-if="generalState !== 'viewBookList'" />
 	</div>
   </div>
 </template>
@@ -39,7 +39,10 @@ export default {
       console.log(data);
 
       this.bookList = data;
-    }
+    },
+	addNewBook() {
+		this.generalState = 'addNewBook';
+	}
   },
   mounted() {
     this.getBookList();

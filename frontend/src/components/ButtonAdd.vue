@@ -1,10 +1,15 @@
 <template>
-  <button class="add-book">+</button>
+  <button @click="addNewBook" class="add-book">+</button>
 </template>
 
 <script>
 export default {
-  name: 'ButtonAdd'
+  name: 'ButtonAdd',
+  methods: {
+	addNewBook() {
+		this.$emit('add-new-book');
+	}
+  }
 } 
 </script>
 

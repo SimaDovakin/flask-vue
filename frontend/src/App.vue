@@ -25,7 +25,7 @@ export default {
     return {
 		generalState: 'viewBookList', // General state of app. Can acept following values: 'viewBookList', 'addNewBook' and 'editBook' 
 		bookList: []
-    }
+	}
   },
   methods: {
     async getBookList() {

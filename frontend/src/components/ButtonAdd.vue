@@ -7,7 +7,7 @@ export default {
   name: 'ButtonAdd',
   methods: {
 	addNewBook() {
-		this.$emit('add-new-book');
+		this.$emit('add-new-book-state');
 	}
   }
 } 

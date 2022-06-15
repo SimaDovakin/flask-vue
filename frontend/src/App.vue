@@ -3,8 +3,8 @@
     <h1>Book Manager</h1>
     <BookList :bookList="bookList"/>
 	<div class="form-container">
-		<ButtonAdd @add-new-book="addNewBook" v-if="generalState === 'viewBookList'" :generalState="generalState" />
-		<BookForm v-if="generalState !== 'viewBookList'" />
+		<ButtonAdd @add-new-book-state="addNewBookState" v-if="generalState === 'viewBookList'" :generalState="generalState" />
+		<BookForm @add-new-book="addNewBook" v-if="generalState !== 'viewBookList'" />
 	</div>
   </div>
 </template>
@@ -40,8 +40,31 @@ export default {
 
       this.bookList = data;
     },
-	addNewBook() {
+	addNewBookState() {
 		this.generalState = 'addNewBook';
+	},
+	async addNewBook(newBook) {
+		console.log("NEW BOOK");
+		console.log(newBook);
+
+		let postData = {
+			name: newBook.bookName,
+			author: newBook.bookAuthor
+		};
+
+		await fetch('http://127.0.0.1:5000/create', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Origin': 'http://localhost',
+				'Accept': 'application/json',
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify(postData)
+		});
+
+		this.generalState = 'viewBookList';
+		this.getBookList();
 	}
   },
   mounted() {

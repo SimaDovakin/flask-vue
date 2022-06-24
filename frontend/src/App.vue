@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-		generalState: 'viewBookList', // General state of app. Can acept following values: 'viewBookList', 'addNewBook' and 'editBook' 
+		generalState: 'viewBookList', // General state of app. Can accepts following values: 'viewBookList', 'addNewBook' and 'editBook' 
 		bookList: []
 	}
   },

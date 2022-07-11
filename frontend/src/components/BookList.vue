@@ -7,7 +7,7 @@
 		<th>Actions</th>
 	</tr>
 	<tr v-for="book in bookList" :key="book.id">
-		<BookItem :book="book" @delete-book="deleteBook"/>
+		<BookItem :book="book" @delete-book="deleteBook" @edit-book="editBook"/>
 	</tr>
 </table>
 </template>
@@ -26,7 +26,10 @@ export default {
   methods: {
     deleteBook(book) {
 		this.$emit('delete-book', book);
-    }
+    },
+	editBook(book) {
+		this.$emit('edit-book', book);
+	}
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Book Manager</h1>
-    <BookList @delete-book="deleteBook" :bookList="bookList"/>
+    <BookList @delete-book="deleteBook" @edit-book="editBook" :bookList="bookList"/>
 	<div class="form-container">
 		<ButtonAdd @add-new-book-state="addNewBookState" v-if="generalState === 'viewBookList'" :generalState="generalState" />
 		<BookForm @add-new-book="addNewBook" v-if="generalState !== 'viewBookList'" />
@@ -42,6 +42,10 @@ export default {
     },
 	addNewBookState() {
 		this.generalState = 'addNewBook';
+	},
+	editBook(book) {
+		console.log("Edit book:");
+		console.log(book);
 	},
 	async addNewBook(newBook) {
 		console.log("NEW BOOK");

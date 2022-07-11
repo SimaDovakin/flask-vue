@@ -3,7 +3,7 @@
 	<td>{{ book.author }}</td>
 	<td>{{ book.created_at }}</td>
 	<td>
-		<button>Edit</button>
+		<button @click="editBook">Edit</button>
 		<button @click="deleteBook">Delete</button>
 	</td>
 </template>
@@ -17,7 +17,10 @@ export default {
   methods: {
     deleteBook() {
 		this.$emit('delete-book', this.book);
-    }
+    },
+	editBook() {
+		this.$emit('edit-book', this.book);
+	}
   }
 }
 </script>

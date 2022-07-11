@@ -4,7 +4,7 @@
 	<td>{{ book.created_at }}</td>
 	<td>
 		<button>Edit</button>
-		<button>Delete</button>
+		<button @click="deleteBook">Delete</button>
 	</td>
 </template>
 
@@ -13,7 +13,12 @@ export default {
   name: 'BookItem',
   props: {
 	book: Object
-  } 
+  },
+  methods: {
+    deleteBook() {
+		this.$emit('delete-book', this.book);
+    }
+  }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Book Manager</h1>
-    <BookList :bookList="bookList"/>
+    <BookList @delete-book="deleteBook" :bookList="bookList"/>
 	<div class="form-container">
 		<ButtonAdd @add-new-book-state="addNewBookState" v-if="generalState === 'viewBookList'" :generalState="generalState" />
 		<BookForm @add-new-book="addNewBook" v-if="generalState !== 'viewBookList'" />
@@ -64,6 +64,19 @@ export default {
 		});
 
 		this.generalState = 'viewBookList';
+		this.getBookList();
+	},
+	async deleteBook(book) {
+		await fetch(`http://127.0.0.1:5000/delete/${book.id}`, {
+			method: 'DELETE',
+			mode: 'cors',
+			headers: {
+				'Origin': 'http://localhost',
+				'Accept': 'application/json',
+				'Content-type': 'application/json'
+			}
+		})
+
 		this.getBookList();
 	}
   },

@@ -6,16 +6,19 @@
           <th>Adding date</th>
       </tr>
       <tr v-for="book in bookList" :key="book.id">
-          <td>{{ book.name }}</td>
-          <td>{{ book.author }}</td>
-          <td>{{ book.created_at }}</td>
+		<BookItem :book="book"/>
       </tr>
   </table>
 </template>
 
 <script>
+import BookItem from './BookItem.vue'
+
 export default {
   name: 'BookList',
+  components: {
+	BookItem	
+  },
   props: {
     bookList: Array
   }
@@ -47,7 +50,7 @@ table {
   background: #01b974;
   color: white
 }
-td, th {
+th {
   text-align: left;
   padding: 8px
 }

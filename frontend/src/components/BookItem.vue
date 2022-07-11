@@ -2,6 +2,10 @@
 	<td>{{ book.name }}</td>
 	<td>{{ book.author }}</td>
 	<td>{{ book.created_at }}</td>
+	<td>
+		<button>Edit</button>
+		<button>Delete</button>
+	</td>
 </template>
 
 <script>

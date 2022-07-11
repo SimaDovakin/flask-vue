@@ -1,14 +1,15 @@
 <template>
-  <table>
-      <tr class="table-heading">
-          <th>Name</th>
-          <th>Author</th>
-          <th>Adding date</th>
-      </tr>
-      <tr v-for="book in bookList" :key="book.id">
+<table>
+	<tr class="table-heading">
+		<th>Name</th>
+		<th>Author</th>
+		<th>Adding date</th>
+		<th>Actions</th>
+	</tr>
+	<tr v-for="book in bookList" :key="book.id">
 		<BookItem :book="book"/>
-      </tr>
-  </table>
+	</tr>
+</table>
 </template>
 
 <script>

@@ -4,7 +4,12 @@
     <BookList @delete-book="deleteBook" @edit-book="editBook" :bookList="bookList"/>
 	<div class="form-container">
 		<ButtonAdd @add-new-book-state="addNewBookState" v-if="generalState === 'viewBookList'" :generalState="generalState" />
-		<BookForm @add-new-book="addNewBook" v-if="generalState !== 'viewBookList'" />
+		<BookForm 
+			@add-new-book="addNewBook"
+			@edited-book="saveEditedBook"
+			v-if="generalState !== 'viewBookList'" 
+			:book="editingBook"
+			:generalState="generalState"/>
 	</div>
   </div>
 </template>
@@ -24,7 +29,8 @@ export default {
   data() {
     return {
 		generalState: 'viewBookList', // General state of app. Can accepts following values: 'viewBookList', 'addNewBook' and 'editBook' 
-		bookList: []
+		bookList: [],
+		editingBook: {}
 	}
   },
   methods: {
@@ -46,6 +52,31 @@ export default {
 	editBook(book) {
 		console.log("Edit book:");
 		console.log(book);
+		this.editingBook = book;
+		this.generalState = 'editBook';
+	},
+	async saveEditedBook(editedBook) {
+		console.log("Edited book");
+		console.log(editedBook);
+
+		let putData = {
+			name: editedBook.name,
+			author: editedBook.author
+		};
+
+		await fetch(`http://127.0.0.1:5000/edit/${editedBook.id}`, {
+			method: 'PUT',
+			mode: 'cors',
+			headers: {
+				'Origin': 'http://localhost',
+				'Accept': 'application/json',
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify(putData)
+		})
+
+		this.generalState = 'viewBookList';
+		this.getBookList();
 	},
 	async addNewBook(newBook) {
 		console.log("NEW BOOK");

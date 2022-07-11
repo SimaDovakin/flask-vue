@@ -2,7 +2,8 @@
   <form action="">
 	<input v-model="bookName" :class="bookNameFieldError ? 'error' : ''" class="form-field" type="text" name="name" id="name" placeholder="Book name">
 	<input v-model="bookAuthor" :class="bookAuthorFieldError ? 'error' : ''" class="form-field" type="text" name="author" id="author" placeholder="Book author">
-    <input @click.prevent="submitForm" class="button-submit" type="submit" value="Add book">
+    <input v-if="generalState == 'editBook'" @click.prevent="editBook" class="button-submit" type="submit" value="Edit book">
+    <input v-else @click.prevent="submitForm" class="button-submit" type="submit" value="Add book">
 	<div v-if="errorMessagesExists" class="error-messages">
 		<p v-for="(errorMessage, i) in errorMessages" :key="i" >{{ errorMessage }}</p>
 	</div>
@@ -12,8 +13,18 @@
 <script>
 export default {
   name: 'BookForm',
+  props: {
+	book: {
+      type: Object,
+      default: null
+	},
+    generalState: {
+      type: String
+    }
+  },
   data() {
 	return {
+		bookId: '',
 		bookName: '',
 		bookAuthor: '',
 		bookNameFieldError: false,
@@ -56,6 +67,16 @@ export default {
 
 		this.$emit('add-new-book', newBook);
 	},
+	editBook() {
+		console.log("Edit book");
+		let editedBook = {
+			id: this.bookId,
+			name: this.bookName,
+			author: this.bookAuthor
+		};
+
+		this.$emit('edited-book', editedBook);
+	},
 	isErrorMessagesExists() {
 		let values = Object.values(this.errorMessages).filter((item) => {
 			return item.trim() !== "";
@@ -66,6 +87,13 @@ export default {
 		}
 
 		return false;
+	}
+  },
+  mounted() {
+	if (this.generalState === 'editBook') {
+		this.bookName = this.book.name;
+		this.bookAuthor = this.book.author;
+		this.bookId = this.book.id
 	}
   }
 }
